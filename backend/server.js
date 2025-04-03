@@ -11,8 +11,8 @@ app.get("/", (req, res) => {
 
 app.get("/api/nutrition/:food", async (req, res) => {
   const food = req.params.food;
-  const appId = "bc4d9c7d"; // Your Edamam app_id
-  const appKey = "9332ac029c4d852405addb17e3872e62"; // Your Edamam app_key
+  const appId = "bc4d9c7d";
+  const appKey = "9332ac029c4d852405addb17e3872e62";
   const url = `https://api.edamam.com/api/nutrition-data?app_id=${appId}&app_key=${appKey}&ingr=${encodeURIComponent(
     food
   )}`;
@@ -24,7 +24,6 @@ app.get("/api/nutrition/:food", async (req, res) => {
     const data = await response.json();
     console.log("Full Edamam response:", JSON.stringify(data, null, 2));
 
-    // Check if we have parsed nutrient data
     const nutrients = data.ingredients?.[0]?.parsed?.[0]?.nutrients;
     if (response.ok && nutrients && nutrients.ENERC_KCAL) {
       res.send({
